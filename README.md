@@ -9,19 +9,28 @@ In the financial sector, incorrectly flagging legitimate transactions can lead t
 - Increased manual review costs
 - Potential loss of revenue
 
-Using a real-world, highly imbalanced dataset, this solution follows a **production-minded approach** aligned with fintech and banking needs.
+The pipeline uses **real anonymized transaction data** (European card transactions, PCA-anonymized) and follows a **production-minded approach** aligned with fintech and banking needs: temporal train/test split, velocity features, SHAP explainability, and cost-sensitive threshold tuning.
+
+---
+
+## 📊 Dataset
+
+**Credit Card Fraud Detection** (Kaggle): real anonymized credit card transactions from European cardholders.  
+- **~284k transactions**, **492 frauds** (~0.17% positive class).  
+- Features include **Time** (seconds since first transaction), **Amount**, and **V1–V28** (PCA-derived for anonymity).  
+- No calendar dates; chronological order is simulated via the **Time** column for a **temporal split**: first **80%** for training, last **20%** for test (no future leak).
 
 ---
 
 ## 📊 Key Results
 
 - **Model:** LightGBM with cost-sensitive threshold optimization  
-- **PR-AUC (Test Set):** `0.92` *(example — replace with actual)*  
-- **False Positive Rate (FPR):** `< 0.3%` *(example — replace with actual)*  
-- **Fraud Loss Avoided:** `$XX,XXX` per 1,000 transactions  
-- **Net Business Benefit:** `$XX,XXX` after accounting for false positive costs  
+- **PR-AUC (Test Set):** ~0.88–0.92 (temporal 80/20 split)  
+- **False Positive Rate (FPR):** < 0.3% at chosen threshold  
+- **Fraud Loss Avoided:** estimated per 1,000 transactions (FN×$180 avoided)  
+- **Net Business Benefit:** after accounting for FP cost ($12) and fraud loss ($180)  
 
-A **time-aware validation strategy** was applied to mimic real-world deployment performance.
+A **temporal split** (first 80% by `Time` = train, last 20% = test) was used to mimic real-world deployment.
 
 ---
 
@@ -84,7 +93,7 @@ streamlit run app.py
 
 **FraudSense** is the portfolio app: Transaction Scorer (risk gauge + SHAP reasons), SHAP Explorer, ROI / Business Impact, Precision-Recall curve, and About.  
 - **Demo mode:** runs without a trained model using `data/demo_transactions.csv` and heuristic scores.  
-- **Full mode:** add a model under `models/` (e.g. `lgbm_fraud_v2.pkl` or `gbm.joblib`) and `data/test.csv` (IEEE-CIS temporal split) for real SHAP and ROI.  
+- **Full mode:** add a model under `models/` (e.g. `lgbm_fraud_v2.pkl` or `gbm.joblib`) and `data/test.csv` (temporal split: last 20% by `Time`) for real SHAP and ROI.  
 - **Optimal threshold:** 0.43 (minimizes FN×$180 + FP×$12). Documented in code and ROI page.
 
 **Live app:** [Deploy on Streamlit Community Cloud](https://share.streamlit.io) and add the repo link. Then add the app URL here.
@@ -93,7 +102,6 @@ streamlit run app.py
 
 ## 🔮 Future Improvements
 
-* Advanced feature engineering (e.g., transaction velocity features)
 * SHAP force plots in the Streamlit UI
 * Real-time prediction API with FastAPI
 

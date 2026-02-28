@@ -1,6 +1,6 @@
 """
 FraudSense — About This Project.
-IEEE-CIS dataset, temporal split, tech stack, author card.
+Credit Card Fraud (real anonymized data), temporal split 80/20 by Time, tech stack, author card.
 """
 from __future__ import annotations
 
@@ -18,16 +18,16 @@ inject_fraud_sense_style(st)
 
 st.title("About This Project")
 
-st.subheader("What is the IEEE-CIS dataset?")
+st.subheader("What dataset is used?")
 st.markdown("""
-The **IEEE-CIS Fraud Detection** dataset is from a Kaggle competition with real e-commerce transaction data (~590k transactions) provided by Vesta.  
-Using **real data** (not synthetic) matters: fraud patterns, class imbalance, and temporal drift reflect production conditions and lead to realistic model evaluation.
+The **Credit Card Fraud Detection** dataset (Kaggle) contains **real anonymized** European credit card transactions (~284k transactions, 492 frauds, ~0.17% positive class).  
+Features V1–V28 are PCA-anonymized for privacy. **Time** is seconds since the first transaction (no calendar dates). Using **real anonymized data** (not synthetic) gives realistic fraud patterns and class imbalance for model evaluation.
 """)
 
 st.subheader("Why temporal split (not random)?")
 st.markdown("""
-In fraud detection, a **random** train/test split leaks future information into training: some "future" transactions (e.g. Oct–Dec) would appear in the training set.  
-In production the model only sees the past. So we use a **temporal split**: train on Jan–Sep, test on Oct–Dec. No future leak, and evaluation reflects real deployment.
+A **random** train/test split would leak future information: later transactions could appear in the training set.  
+In production the model only sees the past. We use a **temporal split** based on the **Time** column: **first 80%** of transactions = train (and validation), **last 20%** = test. No future leak; evaluation reflects real deployment.
 """)
 
 st.subheader("Tech stack")

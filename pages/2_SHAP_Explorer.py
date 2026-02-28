@@ -42,7 +42,7 @@ df_test = load_test_data()
 demo_mode = model is None or len(df_test) == 0
 
 if demo_mode:
-    st.info("No model or test data found. Add a trained model in `models/` and `data/test.csv` (temporal split) for full SHAP waterfall and beeswarm.")
+    st.info("No model or test data found. Add a trained model in `models/` and `data/test.csv` (last 20% by Time) for full SHAP waterfall and beeswarm.")
 else:
     import shap
     # Ensure we have feature columns

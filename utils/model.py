@@ -35,8 +35,8 @@ REFERENCE_DT = pd.Timestamp("2017-12-01 00:00:00")  # IEEE-CIS TransactionDT ref
 
 def load_temporal_test(max_rows: int = 8000) -> Optional[pd.DataFrame]:
     """
-    Load temporal test set (Oct–Dec) for PR curve / ROI.
-    Tries: test.csv → train.csv → build from train_transaction.csv (TransactionDT, month >= 10).
+    Load temporal test set (last 20% by Time) for PR curve / ROI.
+    Tries: test.csv → train.csv → build from train_transaction.csv if present (else creditcard.csv with Time-based split).
     """
     # 1. Pre-built splits
     for name in ("test.csv", "train.csv"):

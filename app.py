@@ -120,7 +120,7 @@ st.markdown(
     '<div class="fraud-metric-card blue">'
     '<div class="fraud-metric-label">Transactions Scored</div>'
     '<div class="fraud-metric-value">590<span style="font-size:14px;color:var(--muted)">K</span></div>'
-    '<div class="fraud-metric-delta">IEEE-CIS · Temporal split</div></div>'
+    '<div class="fraud-metric-delta">Temporal split (80% train / 20% test by Time)</div></div>'
     '</div>',
     unsafe_allow_html=True,
 )
