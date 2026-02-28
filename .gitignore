@@ -1,0 +1,35 @@
+Here is a `.gitignore` file for your project. This file is essential for a professional repository because it tells Git to ignore files that shouldn't be tracked, such as large datasets, model artifacts, and local environment files.
+
+```
+# Python environment files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+/htmlcov/
+.tox/
+.nox/
+
+# IDE files
+.vscode/
+.idea/
+
+# Data files (often too large for Git)
+/data/
+/predictions_test.csv
+
+# Machine learning model artifacts
+/models/
+*.joblib
+*.pkl
+*.h5
+*.keras
+*.csv
+
+# Streamlit-specific files
+.streamlit/
+```
